@@ -14,27 +14,42 @@ template<class KEY, class VAL>
 class hash_function_properties {
 public:
     virtual size_t
-    hash_function(const KEY &position, const my::pair<KEY, VAL> **storage_, const size_t h_table_size) = 0;
+
+    hash_function(KEY &key, my::pair<KEY, VAL> **storage_, const size_t h_table_size) = 0;
+
+    virtual my::pair<KEY, VAL> *
+    find(KEY &key, my::pair<KEY, VAL> **storage_, const size_t h_table_size) = 0;
 
     virtual void
-    delete_function(const KEY &position, my::pair<KEY, VAL> **storage_, const size_t h_table_size) = 0;
+    delete_function(KEY &position, my::pair<KEY, VAL> **storage_, const size_t h_table_size) = 0;
 };
 
 template<class KEY, class VAL>
 class open_addressing : public hash_function_properties<KEY, VAL> {
 
 public:
-    size_t hash_function(const KEY &position, const my::pair<KEY, VAL> **storage_, const size_t h_table_size) {
+    size_t hash_function(KEY &key, my::pair<KEY, VAL> **storage_, const size_t h_table_size) {
 
-        size_t index = position % h_table_size;
+        size_t index = key % h_table_size;
 
-        while (storage_[index]->first != position || storage_[index] != nullptr) {
-            ++index;
-        }
+        while (!(storage_[index] == nullptr || storage_[index]->first == key)) ++index;
+
         return index;
     }
 
-    void delete_function(const KEY &position, my::pair<KEY, VAL> **storage_, const size_t h_table_size) {
+    my::pair<KEY, VAL> *find(KEY &position, my::pair<KEY, VAL> **storage_, const size_t h_table_size) {
+
+        size_t index = position % h_table_size;
+
+        while (storage_[index]->first != position) {
+
+            if (index >= h_table_size || storage_[index]) return nullptr;
+            ++index;
+        }
+        return storage_[index];
+    }
+
+    void delete_function(KEY &position, my::pair<KEY, VAL> **storage_, const size_t h_table_size) {
 
         size_t index = position % h_table_size;
 
@@ -57,17 +72,18 @@ public:
 
     h_table(size_t size) {
         operations_ = new open_addressing<KEY, VAL>();
-        storage_ = (my::pair<KEY, VAL> **) malloc (size*sizeof(my::pair<KEY, VAL> *));
+        storage_ = (my::pair<KEY, VAL> **) malloc(size * sizeof(my::pair<KEY, VAL> *));
         this->size_ = size;
     }
 
 
-    void push(const my::pair<KEY, VAL> value) {
+    void push(my::pair<KEY, VAL> value) {
         storage_[operations_->hash_function(value.first, storage_, size_)] = &value;
     };
 
     void push(KEY key, VAL value) {
-        storage_[operations_->hash_function(key, storage_, size_)] = new my::pair<KEY,VAL>(key,value);
+
+        storage_[operations_->hash_function(key, storage_, size_)] = new my::pair<KEY, VAL>(key, value);
     };
 
 
@@ -79,9 +95,12 @@ public:
         operations_->delete_function[(value.first, storage_, size_)];
     };
 
-    VAL& operator[](const KEY& position){
+    VAL &operator[](KEY position) {
+        return operations_->find(position, storage_, size_)->second;
+    }
 
-        return *storage_[operations_->hash_function(position, storage_, size_)];
+    VAL &operator[](KEY &position) {
+        return operations_->hash_function(position, storage_, size_)->second;
     }
 
     ~h_table() {
@@ -92,9 +111,6 @@ public:
 private:
 
     hash_function_properties<KEY, VAL> *operations_;
-
-
-
     my::pair<KEY, VAL> **storage_;
     size_t size_;
 
@@ -104,9 +120,14 @@ private:
 
 int main() {
     std::cout << "Hello CMake." << std::endl;
-    h_table<int, std::string> tab(10);
-    tab.push({3,"lol"});
-    tab.push(4,"lel");
+    h_table<int, char> tab(10);
+    tab.push(my::pair<int, char>(3, 'k'));
+    std::cout << "val : " << tab[3] << std::endl;
+
+    tab.push(13, 's');
+
+    std::cout << "val : " << tab[4] << std::endl;
+
 
     return 0;
 }
