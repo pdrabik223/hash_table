@@ -3,70 +3,66 @@
 // 
 // Autor: Piotr Drabik				Data: 04.02.2021
 
-#pragma once
 #ifndef PAIR_H
 #define PAIR_H
 
 namespace my {
 
-	template<class KEY, class VAL>
+    template<class KEY, class VAL>
+            class pair {
+      
 
-	class pair {
-		using Pair = pair<KEY, VAL>;
+    public:
+        pair<KEY,VAL>() {
+            first = {};  // oszustwo jezyka c 
+            second = {}; // poniewaz w parze moga znalezc sie dowolne typy zmiennych zwykly null na wartosc zerowa nie wystarcza
+        }
 
+        // kostruktor kopiujacy generowany jest automatycznie
 
-	public:
-		Pair() {
-			first = {};  // oszustwo jezyka c 
-			second = {}; // poniewaz w parze moga znalezc sie dowolne typy zmiennych zwykly null na wartosc zerowa nie wystarcza
-		};
-
-		// kostruktor kopiujacy generowany jest automatycznie
-
-		Pair(KEY x, VAL y) {
-
-			first = x;
-			second = y;
-
-		}
+        pair<KEY,VAL>(KEY x , VAL y):first(x),second(y) {}
 
 
-		Pair(const KEY& x)
-		{
+        pair(const KEY &x) {
 
-			first = x;
-			second = {};
+            first = x;
+            second = {};
 
-		}
+        }
 
-		Pair(const Pair& y) {
-			first = y.first;
-			second = y.second;
-		};
-		Pair& operator=(const Pair& y) {
-			if (this == &y) return *this;
-			first = y.first;
-			second = y.second;
-			return *this;
+        pair(const pair<KEY,VAL> &y) {
+            first = y.first;
+            second = y.second;
+        };
 
-		}
-		bool operator==(const Pair& rhs) const { return first == rhs.first; };
-		bool operator!=(const Pair& rhs) const { return first != rhs.first; };
-		bool operator< (const Pair& rhs) const { return first < rhs.first; };
-		bool operator> (const Pair& rhs) const { return first > rhs.first; };
-		bool operator<=(const Pair& rhs) const { return first <= rhs.first; };
-		bool operator>=(const Pair& rhs) const { return first >= rhs.first; };
-		~pair<KEY, VAL>() = default;
+         pair<KEY,VAL> &operator=(const pair<KEY,VAL> &y) {
+            if (this == &y) return *this;
+            first = y.first;
+            second = y.second;
+            return *this;
+        }
 
-	public: // pola nalezace do tej klasy sa public by imitowac zachowanie std::pair
-		// i jest do nich latwiejszy dostep tym sposobem
-		KEY first; // key 
-		VAL second; // value
+        bool operator==(const pair<KEY,VAL> &rhs) const { return first == rhs.first; };
+
+        bool operator!=(const pair<KEY,VAL> &rhs) const { return first != rhs.first; };
+
+        bool operator<(const pair<KEY,VAL> &rhs) const { return first < rhs.first; };
+
+        bool operator>(const pair<KEY,VAL> &rhs) const { return first > rhs.first; };
+
+        bool operator<=(const pair<KEY,VAL> &rhs) const { return first <= rhs.first; };
+
+        bool operator>=(const pair<KEY,VAL> &rhs) const { return first >= rhs.first; };
+
+        ~pair<KEY, VAL>() = default;
+
+    public:
+        KEY first; // key 
+        VAL second; // value
 
 
-	};
-
-
-#endif // !PAIR_H
+    };
 
 }
+#endif // !PAIR_H
+
