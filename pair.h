@@ -9,13 +9,11 @@
 namespace my {
 
     template<class KEY, class VAL>
-            class pair {
-      
-
+    class pair {
     public:
         pair<KEY,VAL>() {
-            first = {};  // oszustwo jezyka c 
-            second = {}; // poniewaz w parze moga znalezc sie dowolne typy zmiennych zwykly null na wartosc zerowa nie wystarcza
+            first = KEY(0);  // oszustwo jezyka c++
+            second = VAL(0); // poniewaz w parze moga znalezc sie dowolne typy zmiennych zwykly null na wartosc zerowa nie wystarcza
         }
 
         // kostruktor kopiujacy generowany jest automatycznie
@@ -26,7 +24,7 @@ namespace my {
         pair(const KEY &x) {
 
             first = x;
-            second = {};
+            second = VAL(0);
 
         }
 
@@ -56,7 +54,7 @@ namespace my {
 
         ~pair<KEY, VAL>() = default;
 
-    public:
+
         KEY first; // key 
         VAL second; // value
 
