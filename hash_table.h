@@ -12,18 +12,18 @@ public:
 
     h_table(size_t size) {
         operations_ = new open_addressing<KEY, VAL>();
-        storage_ = new my::pair<KEY, VAL> *[size];
+        storage_ = new my::pair<KEY, VAL> [size];
         this->size_ = size;
     }
 
 
     void push(my::pair<KEY, VAL> value) {
-        storage_[operations_->hash_function(value.first, storage_, size_)] = &value;
+        storage_[operations_->hash_function(value.first, storage_, size_)] = value;
     };
 
     void push(KEY key, VAL value) {
 
-        storage_[operations_->hash_function(key, storage_, size_)] = new my::pair<KEY, VAL>(key, value);
+        storage_[operations_->hash_function(key, storage_, size_)] = my::pair<KEY, VAL>(key, value);
     };
 
 
@@ -51,7 +51,7 @@ public:
 private:
 
     hash_function_properties<KEY, VAL> *operations_;
-    my::pair<KEY, VAL> **storage_;
+    my::pair<KEY, VAL> *storage_;
     size_t size_;
 
 
