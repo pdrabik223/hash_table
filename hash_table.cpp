@@ -19,10 +19,10 @@ int main() {
     tab.push(my::pair<int, char>(0, 'k'));
     std::cout << "val : " << tab[0] << std::endl;
 
-    tab.push(10, 's');
+    tab.push(my::pair<int, char>(10, 's'));
+    tab.push(my::pair<int, char>(20, 'l'));
+    std::cout << "val2 : " << tab[20] << std::endl;
 
-    std::cout << "val2 : " << tab[10] << std::endl;
-
-
+    system("pause");
     return 0;
 }

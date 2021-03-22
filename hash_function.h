@@ -28,25 +28,28 @@ public:
 
         size_t index = key % h_table_size;
 
-        while (true){
+        auto ptr = &(storage_[index]);
 
-          if(&storage_[index] == nullptr) return index;
-            else if(storage_[index].first == key) return index;
-            ++index;
+        for (index; index < h_table_size; ++index) {
+
+            if (!ptr->first)            return index;
+            else if (ptr->first == key) return index;
+            ++ptr;
         }
-
+        throw "out of table_range";
     }
 
     my::pair<KEY, VAL> *find(KEY &position, my::pair<KEY, VAL> *storage_, const size_t h_table_size) {
 
         size_t index = position % h_table_size;
+        auto ptr = &(storage_[index]);
+        for (index; index < h_table_size; ++index) {
 
-        while (storage_[index].first != position) {
-
-            if (index >= h_table_size || &storage_[index]) return nullptr;
-            ++index;
+            if (!ptr->first)                 return ptr;
+            else if(ptr->first == position)  return ptr;
+            ++ptr;
         }
-        return &storage_[index];
+        throw "out of table_range";
     }
 
     void delete_function(KEY &position, my::pair<KEY, VAL> *storage_, const size_t h_table_size) {
@@ -64,4 +67,5 @@ public:
 
     }
 };
+
 #endif //HASH_TABLE_HASH_FUNCTION_H
