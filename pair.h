@@ -8,12 +8,13 @@
 
 namespace my {
 
+
     template<class KEY, class VAL>
-    class pair {
+    class pair{
     public:
         pair<KEY,VAL>() {
-            first = KEY(0);  // oszustwo jezyka c++
-            second = VAL(0); // poniewaz w parze moga znalezc sie dowolne typy zmiennych zwykly null na wartosc zerowa nie wystarcza
+            first = KEY(0);
+            second = VAL(0);
         }
 
         // kostruktor kopiujacy generowany jest automatycznie
