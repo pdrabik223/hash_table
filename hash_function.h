@@ -11,14 +11,14 @@ class hash_function_properties {
 public:
     virtual size_t
 
-    hash_function(KEY &key, my::pair<KEY, VAL> **storage_, const size_t h_table_size) = 0;
+    hash_function(KEY &key, my::pair<KEY, VAL> **storage_, size_t h_table_size) = 0;
 
 
     virtual my::pair<KEY, VAL> *
-    find(KEY &key, my::pair<KEY, VAL> **storage_, const size_t h_table_size) = 0;
+    find(KEY &key, my::pair<KEY, VAL> **storage_, size_t h_table_size) = 0;
 
     virtual void
-    delete_function(KEY &position, my::pair<KEY, VAL> **storage_, const size_t h_table_size) = 0;
+    delete_function(KEY &position, my::pair<KEY, VAL> **storage_, size_t h_table_size) = 0;
 };
 
 template<class KEY, class VAL>
@@ -33,7 +33,7 @@ public:
 
         for (index; index < h_table_size; ++index) {
 
-            if (! storage_[index]) return index;
+            if (! storage_[index])                   return index;
             else if ( storage_[index]->first == key) return index;
 
         }
