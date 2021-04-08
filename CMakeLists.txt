@@ -7,7 +7,12 @@ set(CMAKE_CXX_STANDARD 14)
 
 
 # Dodaj źródło do pliku wykonywalnego tego projektu.
-add_executable (hash_table "main.cpp" "h_table.cpp" "h_table.h" "pair.h" "hash_function.h")
+add_executable (hash_table
+        main.cpp
+        h_table.h
+        h_table.cpp
+        pair.h
+        hash_function.h)
 
 set(CMAKE_CXX_STANDARD_LIBRARIES "-static-libgcc -static-libstdc++ -lwsock32 -lws2_32 ${CMAKE_CXX_STANDARD_LIBRARIES}")
 

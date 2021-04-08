@@ -47,27 +47,32 @@ public:
 
     using ValueType = my::pair<KEY, VAL>;
 
-    iterator<h_table<KEY, VAL>> begin() {
-        return iterator<h_table<KEY, VAL>>(storage_[0]);
+    iterator<h_table<KEY, VAL>*> begin() {
+        return iterator<h_table<KEY, VAL>*>(storage_[0]);
     };
 
-    iterator<h_table<KEY, VAL>> end() {
-        return iterator<h_table<KEY, VAL>>(storage_[size_]);
+    iterator<h_table<KEY, VAL>*> end() {
+        return iterator<h_table<KEY, VAL>*>(storage_[size_]);
     };
 
+    my::pair<KEY, VAL>* get_element(unsigned position){
+        my::pair<KEY, VAL> * temp = storage_[position];
+        if(temp != nullptr) return temp;
+        else return nullptr;
+
+    }
 
     h_table(size_t size);
 
-    void push(my::pair<KEY, VAL> value);;
+    void push(my::pair<KEY, VAL> value);
 
-    void push(KEY key, VAL value);;
+    void push(KEY key, VAL value);
 
-    void pop(my::pair<KEY, VAL> value);;
+    void pop(my::pair<KEY, VAL> value);
 
-    void pop(KEY &key);;
+    void pop(KEY &key);
 
     VAL &operator[](KEY position);
-
 
     ~h_table();
 
@@ -77,6 +82,6 @@ private:
 
     hash_function_properties<KEY, VAL> *operations_;
     my::pair<KEY, VAL> **storage_;
-    size_t size_{};
+    size_t size_;
 
 };

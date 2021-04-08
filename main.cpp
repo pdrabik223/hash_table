@@ -5,8 +5,6 @@
 #include "h_table.h"
 #include "pair.h"
 
-unsigned read_file(const char *file_path);
-
 unsigned read_console();
 
 
@@ -28,7 +26,8 @@ int main() {
 
     system("pause");
     for (int i=0;i<tab.get_size();i++) {
-        std::cout <<i<<": "<<tab[i]<<std::endl;
+        if(tab.get_element(i))std::cout<<tab.get_element(i)->first<<tab.get_element(i)->second<<std::endl;
+
     }
 
 

@@ -1,6 +1,5 @@
 ﻿// hash_table.cpp: definiuje punkt wejścia dla aplikacji.
 //
-#include <string>
 
 #include "h_table.h"
 
