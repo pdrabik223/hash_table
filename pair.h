@@ -23,10 +23,8 @@ namespace my {
 
 
         pair(const KEY &x) {
-
             first = x;
             second = VAL(0);
-
         }
 
         pair(const pair<KEY,VAL> &y) {
