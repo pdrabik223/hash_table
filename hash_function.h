@@ -18,7 +18,7 @@ public:
     find(KEY &key, my::pair<KEY, VAL> **storage_, size_t h_table_size) = 0;
 
     virtual void
-    delete_function(KEY &position, my::pair<KEY, VAL> **storage_, size_t h_table_size) = 0;
+    delete_function(KEY &key, my::pair<KEY, VAL> **storage_, size_t h_table_size) = 0;
 };
 
 template<class KEY, class VAL>
@@ -29,12 +29,10 @@ public:
 
         size_t index = key % h_table_size;
 
-        auto ptr = storage_[index];
+        for (; index < h_table_size; ++index) {
 
-        for (index; index < h_table_size; ++index) {
-
-            if (! storage_[index])                   return index;
-            else if ( storage_[index]->first == key) return index;
+            if (storage_[index] != nullptr) return index;
+            else if (storage_[index]->first == key) return index;
 
         }
         throw "out of table_range";
@@ -53,16 +51,23 @@ public:
         throw "out of table_range";
     }
 
-    void delete_function(KEY &position, my::pair<KEY, VAL> **storage_, const size_t h_table_size) {
+    void delete_function(KEY &key, my::pair<KEY, VAL> **storage_, const size_t h_table_size) {
 
-        size_t index = position % h_table_size;
+        size_t index = key % h_table_size; // solve for proper position of element in tab
+        size_t index_copy = index;
 
-        while (storage_[index]->first != position || storage_[index] != nullptr) {
-            ++index;
+
+        for (; index <= h_table_size; ++index) {   // check if the element under position
+            if (storage_[index]->first == key) break;   // is the right one,
+            // if not go thru elements after this one till you find corect one
         }
+        if (index == h_table_size) return; // if tab does not contain element
 
-        while (storage_[index]->first != index || storage_[index] != nullptr) {
+        while (storage_[index]->first % h_table_size == index_copy) {  // correct position of subsequent element's
+            if (index >= h_table_size) return;
             storage_[index] = storage_[index + 1];
+            storage_[index + 1] = nullptr; // this can be better
+            ++index;
         }
 
 

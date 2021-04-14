@@ -64,6 +64,7 @@ public:
 
     h_table(size_t size);
 
+
     void push(my::pair<KEY, VAL> value);
 
     void push(KEY key, VAL value);
@@ -109,7 +110,6 @@ void h_table<KEY, VAL>::pop(my::pair<KEY, VAL> value) {
 
 template<class KEY, class VAL>
 void h_table<KEY, VAL>::push(KEY key, VAL value) {
-
     storage_[operations_->hash_function(key, storage_, size_)] = new my::pair<KEY, VAL>(key, value);
 }
 
@@ -124,6 +124,6 @@ h_table<KEY, VAL>::h_table(size_t size) {
     storage_ = new my::pair<KEY, VAL> *[size];
     memset(storage_, 0, sizeof(my::pair<KEY, VAL> *) * size);
 
-    this->size_ = size;
+    size_ = size;
 }
 
