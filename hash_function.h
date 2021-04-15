@@ -54,21 +54,29 @@ public:
     void delete_function(KEY &key, my::pair<KEY, VAL> **storage_, const size_t h_table_size) {
 
         size_t index = key % h_table_size; // solve for proper position of element in tab
-        size_t index_copy = index;
+        size_t proper_element_index = index; // the place where element should be
+                                                // when element collisions happen element gets  misplaced
 
 
         for (; index <= h_table_size; ++index) {   // check if the element under position
             if (storage_[index]->first == key) break;   // is the right one,
-            // if not go thru elements after this one till you find corect one
+                                                 // if not, go thru elements after this one till you find correct one
         }
+
         if (index == h_table_size) return; // if tab does not contain element
 
-        while (storage_[index]->first % h_table_size == index_copy) {  // correct position of subsequent element's
-            if (index >= h_table_size) return;
-            storage_[index] = storage_[index + 1];
-            storage_[index + 1] = nullptr; // this can be better
+        storage_[index] = nullptr; // deleting the wanted item;
+
+        while(index < h_table_size){// correct the position of subsequent element's
+            if (storage_[index+1] == nullptr) break;
+            if(storage_[index+1]->first % h_table_size != index+1) {
+                storage_[index] = storage_[index + 1];
+                storage_[index + 1] = nullptr; // deleting subsequent element
+            }
+            else break;
             ++index;
         }
+
 
 
     }
