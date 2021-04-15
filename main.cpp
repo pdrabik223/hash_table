@@ -12,28 +12,25 @@ int main() {
 
 
     h_table<int, char> tab(10);
-
-/*
-    tab.push(my::pair<int, char>(0, 'k'));
-
-    std::cout << "val0 : " << tab[0] << std::endl;
-    tab.push(my::pair<int, char>(1, 'p'));
-    tab.push(my::pair<int, char>(10, 's'));
-    tab.push(my::pair<int, char>(20, 'l'));
+    tab.push(3,'f');
+    tab.push(13,'u');
+    tab.push(23,'c');
+    tab.push(33,'k');
+    tab.push(4,'u');
 
 
-    system("pause");
-    std::cout << "val1 : " << tab[10] << std::endl;
-    std::cout << "val2 : " << tab[20] << std::endl;
-  //  tab.pop(10);
-    std::cout << "val2 : " << tab[1] << std::endl;
+    for(int i=0;i<tab.get_size();i++)
+    if(tab.get_element(i)!= nullptr)
+        std::cout<<tab.get_element(i)->first<<"\t"<<tab.get_element(i)->second<<std::endl;
 
-    for (int i=0;i<tab.get_size();i++) {
-        if(tab.get_element(i))std::cout<<tab.get_element(i)->first<<tab.get_element(i)->second<<std::endl;
+    tab.pop(23);
 
-    }
 
-*/
+    for(int i=0;i<tab.get_size();i++)
+        if(tab.get_element(i)!= nullptr)
+            std::cout<<tab.get_element(i)->first<<"\t"<<tab.get_element(i)->second<<std::endl;
+
+
     system("pause");
     return 0;
 }

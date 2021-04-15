@@ -31,7 +31,7 @@ public:
 
         for (; index < h_table_size; ++index) {
 
-            if (storage_[index] != nullptr) return index;
+            if (storage_[index] == nullptr) return index;
             else if (storage_[index]->first == key) return index;
 
         }
