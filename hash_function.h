@@ -70,7 +70,7 @@ public:
         while(index < h_table_size){// correct the position of subsequent element's
             if (storage_[index+1] == nullptr) break;
             if(storage_[index+1]->first % h_table_size != index+1) {
-                storage_[index] = storage_[index + 1];
+                storage_[index] = new my::pair<KEY,VAL>(storage_[index + 1]->first,storage_[index + 1]->second);
                 storage_[index + 1] = nullptr; // deleting subsequent element
             }
             else break;
