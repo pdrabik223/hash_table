@@ -1,6 +1,4 @@
-﻿// hash_table.h: plik dołączany dla standardowych systemowych plików dołączanych,
-// lub pliki dołączane specyficzne dla projektu.
-
+﻿
 #pragma once
 
 #include <iostream>
@@ -71,7 +69,7 @@ public:
 
     void pop(my::pair<KEY, VAL> value);
 
-    void pop(KEY &key);
+    void pop(KEY key);
 
     VAL &operator[](KEY position);
 
@@ -99,7 +97,7 @@ VAL &h_table<KEY, VAL>::operator[](KEY position) {
 }
 
 template<class KEY, class VAL>
-void h_table<KEY, VAL>::pop(KEY &key) {
+void h_table<KEY, VAL>::pop(KEY key) {
     operations_->delete_function(key, storage_, size_);
 }
 

@@ -57,7 +57,6 @@ public:
         size_t proper_element_index = index; // the place where element should be
                                                 // when element collisions happen element gets  misplaced
 
-
         for (; index <= h_table_size; ++index) {   // check if the element under position
             if (storage_[index]->first == key) break;   // is the right one,
                                                  // if not, go thru elements after this one till you find correct one
