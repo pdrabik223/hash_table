@@ -93,7 +93,7 @@ h_table<KEY, VAL>::~h_table() {
 
 template<class KEY, class VAL>
 VAL &h_table<KEY, VAL>::operator[](KEY position) {
-    return *operations_->find(position, storage_, size_)->second;
+    return operations_->find(position, storage_, size_)->second;
 }
 
 template<class KEY, class VAL>
