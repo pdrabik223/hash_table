@@ -21,19 +21,28 @@ int main() {
     tab.push(33,"know");
     tab.push(4,"your allays ");
     tab.push(1,"(.).)======D");
+    tab.push(9,":)");
+    tab.push(19,":)))");
 
-    for(int i=0;i<tab.get_size();i++)
-    if(tab.get_element(i)!= nullptr)
-        std::cout<<tab.get_element(i)->first<<"\t"<<tab.get_element(i)->second<<std::endl;
 
+    for(int i=0;i<tab.get_size();i++) {
+     std::cout<<i<<"\t";
+        if (tab.get_element(i) != nullptr)
+            std::cout << tab.get_element(i)->first << "\t" << tab.get_element(i)->second << std::endl;
+        else   std::cout<<std::endl;
+    }
+
+    std::cout<<std::endl;
     tab.pop(23);
 
 
 
-    for(int i=0;i<tab.get_size();i++)
-        if(tab.get_element(i)!= nullptr)
-            std::cout<<tab.get_element(i)->first<<"\t"<<tab.get_element(i)->second<<std::endl;
-
+    for(int i=0;i<tab.get_size();i++) {
+        std::cout<<i<<"\t";
+        if (tab.get_element(i) != nullptr)
+            std::cout << tab.get_element(i)->first << "\t" << tab.get_element(i)->second << std::endl;
+        else   std::cout<<std::endl;
+    }
 
     system("pause");
     return 0;
