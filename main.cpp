@@ -1,11 +1,11 @@
 // hash_table.cpp: definiuje punkt wejścia dla aplikacji.
 //
 #include <string>
-#include <stdlib.h>
+#include <cstdlib>
 #include "h_table.h"
 
 unsigned read_console();
-// todo 6)repair []
+// todo 6) repair []
 // todo 2) repair get element to not return pointer but instead something else
 // todo 3) mahe the thing goble up the input's from console
 // todo 4) general debbuging
@@ -15,14 +15,15 @@ int main() {
 
 
     h_table<int, std::string> tab(10);
-    tab.push(3,"fuck");
-    tab.push(13,"you");
-    tab.push(23,"cunt");
-    tab.push(33,"know");
-    tab.push(4,"your allays ");
-    tab.push(1,"(.).)======D");
-    tab.push(9,":)");
-    tab.push(19,":)))");
+    tab.push(3,"a");
+    tab.push(13,"b");
+    tab.push(23,"c");
+    tab.push(33,"d");
+    tab.push(4,"e");
+
+    tab.push(1,"f");
+    tab.push(9,"g");
+    tab.push(19,"h");
 
 
     for(int i=0;i<tab.get_size();i++) {
@@ -34,6 +35,8 @@ int main() {
 
     std::cout<<std::endl;
     tab.pop(23);
+    tab.pop(1);
+    tab.pop(9);
 
 
 

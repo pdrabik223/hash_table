@@ -16,7 +16,7 @@ public:
     ValueType *current_ptr;
 
 
-    iterator(ValueType *x) : current_ptr(x) {}
+    explicit iterator(ValueType *x) : current_ptr(x) {}
 
     iterator(const iterator &mit) : current_ptr(mit.current_ptr) {}
 
@@ -60,7 +60,7 @@ public:
 
     }
 
-    h_table(size_t size);
+    explicit h_table(size_t size);
 
 
     void push(my::pair<KEY, VAL> value);

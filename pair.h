@@ -22,7 +22,7 @@ namespace my {
         pair<KEY,VAL>(KEY x , VAL y):first(x),second(y) {}
 
 
-        pair(const KEY &x) {
+        explicit pair(const KEY &x) {
             first = x;
             second = VAL(0);
         }
