@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include "h_table.h"
 
-unsigned read_console();
+bool read_console(std::string &command, h_table<long int, std::string> &tab);
 // todo 6) repair []
 // todo 2) repair get element to not return pointer but instead something else
 // todo 3) mahe the thing goble up the input's from console
@@ -12,42 +12,58 @@ unsigned read_console();
 
 
 int main() {
-
-
-    h_table<int, std::string> tab(10);
-    tab.push(3,"a");
-    tab.push(13,"b");
-    tab.push(23,"c");
-    tab.push(33,"d");
-    tab.push(4,"e");
-
-    tab.push(1,"f");
-    tab.push(9,"g");
-    tab.push(19,"h");
-
-
-    for(int i=0;i<tab.get_size();i++) {
-     std::cout<<i<<"\t";
-        if (tab.get_element(i) != nullptr)
-            std::cout << tab.get_element(i)->first << "\t" << tab.get_element(i)->second << std::endl;
-        else   std::cout<<std::endl;
+    h_table<long int, std::string> tab(10);
+    int N;
+    std::cin >> N;
+    std::string command;
+    for (int i = 0; i < N; i++) {
+        while (true) {
+            std::cin >> command;
+            if (read_console(command, tab)) break;
+        }
     }
 
-    std::cout<<std::endl;
-    tab.pop(23);
-    tab.pop(1);
-    tab.pop(9);
-
-
-
-    for(int i=0;i<tab.get_size();i++) {
-        std::cout<<i<<"\t";
-        if (tab.get_element(i) != nullptr)
-            std::cout << tab.get_element(i)->first << "\t" << tab.get_element(i)->second << std::endl;
-        else   std::cout<<std::endl;
-    }
-
-    system("pause");
     return 0;
 }
 
+bool read_console(std::string &command, h_table<long int, std::string> &tab) {
+    if (command == "size") {
+        int size;
+        tab.clear();
+        std::cin >> size;
+        tab.set_size(size);
+        return false;
+    }
+
+    if (command == "add") {
+        long int key;
+        std::string val;
+        std::cin >> key;
+        std::cin >> val;
+        tab.push(key, val);
+        return false;
+    }
+    if (command == "delete") {
+        long int key;
+        std::cin >> key;
+        tab.pop(key);
+        return false;
+    }
+    if (command == "print") {
+        for (int i = 0; i < tab.get_size(); i++) {
+
+            if (tab.get_element(i) != nullptr)
+                std::cout << i << " " << tab.get_element(i)->first << " " \
+                << tab.get_element(i)->second << std::endl;
+
+        }
+        std::cout << std::endl;
+        return false;
+    }
+    if (command == "stop") {
+        return true;
+
+    }
+
+
+}

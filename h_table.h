@@ -74,8 +74,13 @@ public:
     VAL &operator[](KEY position);
 
     ~h_table();
+    void clear(){
+        delete[]storage_;
 
+    }
     size_t get_size() const { return size_; }
+
+    void set_size(int i);
 
 private:
 
@@ -123,5 +128,13 @@ h_table<KEY, VAL>::h_table(size_t size) {
     memset(storage_, 0, sizeof(my::pair<KEY, VAL> *) * size);
 
     size_ = size;
+}
+
+template<class KEY, class VAL>
+void h_table<KEY, VAL>::set_size(int size) {
+    storage_ = new my::pair<KEY, VAL> *[size];
+    memset(storage_, 0, sizeof(my::pair<KEY, VAL> *) * size);
+    size_ = size;
+
 }
 
